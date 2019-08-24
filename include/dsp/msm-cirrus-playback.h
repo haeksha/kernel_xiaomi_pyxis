@@ -11,10 +11,7 @@
  */
 #ifndef MSM_CIRRUS_PLAYBACK_H
 #define MSM_CIRRUS_PLAYBACK_H
-<<<<<<< HEAD
-=======
-#define DEBUG
->>>>>>> 82878c6be8dc... techpack: audio-kernel: import the xiaomi changes from pyxis-p-oss
+
 #include <linux/slab.h>
 #include <sound/soc.h>
 #include <dsp/apr_audio-v2.h>
