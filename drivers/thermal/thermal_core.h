@@ -169,4 +169,9 @@ static inline int of_parse_thermal_message(void) { return 0; }
 static inline void free_thermal_message(void) { }
 #endif
 
+#ifdef CONFIG_THERMAL_SUSPEND_RESUME
+void thermal_sconfig_suspend(void);
+void thermal_sconfig_resume(void);
+#endif
+
 #endif /* __THERMAL_CORE_H__ */
