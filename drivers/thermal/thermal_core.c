@@ -2791,7 +2791,7 @@ static int create_thermal_message_node(void)
 		ret = sysfs_create_file(&thermal_message_dev.kobj,
 					&dev_attr_screen_state.attr);
 		if (ret < 0)
-			pr_warn("Thermal: create batt message node failed\n");
+			pr_warn("Thermal: create screen state node failed\n");
 #endif
 
 		ret = sysfs_create_file(&thermal_message_dev.kobj,
