@@ -68,6 +68,10 @@ enum {
 	HW_PLATFORM_SBC = 24,
 	HW_PLATFORM_ADP = 25,
 	HW_PLATFORM_HDK = 31,
+	HW_PLATFORM_E2	= 32,
+	HW_PLATFORM_F2	= 34,
+	HW_PLATFORM_F3B	= 35,
+	HW_PLATFORM_F3M	= 38,
 	HW_PLATFORM_INVALID
 };
 
@@ -90,6 +94,10 @@ const char *hw_platform[] = {
 	[HW_PLATFORM_SBC] = "SBC",
 	[HW_PLATFORM_ADP] = "ADP",
 	[HW_PLATFORM_HDK] = "HDK",
+	[HW_PLATFORM_E2] = "SIRIUS",
+	[HW_PLATFORM_F2] = "GRUS",
+	[HW_PLATFORM_F3B] = "PYXIS",
+	[HW_PLATFORM_F3M] = "VELA",
 };
 
 enum {
@@ -930,6 +938,19 @@ static char *socinfo_get_image_version_base_address(void)
 	return smem_find(SMEM_IMAGE_VERSION_TABLE,
 				SMEM_IMAGE_VERSION_SIZE, 0, SMEM_ANY_HOST_FLAG);
 }
+
+uint32_t get_hw_version_platform(void)
+{
+	switch (socinfo_get_platform_type()) {
+	case HW_PLATFORM_E2:	return HARDWARE_PLATFORM_SIRIUS;
+	case HW_PLATFORM_F2:	return HARDWARE_PLATFORM_GRUS;
+	case HW_PLATFORM_F3B:	return HARDWARE_PLATFORM_PYXIS;
+	case HW_PLATFORM_F3M:	return HARDWARE_PLATFORM_VELA;
+	}
+
+	return HARDWARE_PLATFORM_UNKNOWN;
+}
+EXPORT_SYMBOL(get_hw_version_platform);
 
 enum msm_cpu socinfo_get_msm_cpu(void)
 {

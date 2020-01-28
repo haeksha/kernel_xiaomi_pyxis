@@ -335,4 +335,35 @@ enum pmic_model socinfo_get_pmic_model(void);
 uint32_t socinfo_get_pmic_die_revision(void);
 int __init socinfo_init(void) __must_check;
 
+enum hardware_platform {
+	HARDWARE_PLATFORM_UNKNOWN	= 0,
+	HARDWARE_PLATFORM_SIRIUS	= 2,
+	HARDWARE_PLATFORM_GRUS		= 3,
+	HARDWARE_PLATFORM_PYXIS		= 4,
+	HARDWARE_PLATFORM_VELA		= 7,
+};
+
+uint32_t get_hw_version_platform(void);
+
+#define HW_MAJOR_VERSION_SHIFT	16
+#define HW_MAJOR_VERSION_MASK	0xFFFF0000
+#define HW_MINOR_VERSION_SHIFT	0
+#define HW_MINOR_VERSION_MASK	0x0000FFFF
+
+static inline
+uint32_t get_hw_version_major(void)
+{
+	uint32_t version = socinfo_get_platform_version();
+
+	return (version & HW_MAJOR_VERSION_MASK) >> HW_MAJOR_VERSION_SHIFT;
+}
+
+static inline
+uint32_t get_hw_version_minor(void)
+{
+	uint32_t version = socinfo_get_platform_version();
+
+	return (version & HW_MINOR_VERSION_MASK) >> HW_MINOR_VERSION_SHIFT;
+}
+
 #endif
