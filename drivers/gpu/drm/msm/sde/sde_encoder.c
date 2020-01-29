@@ -1609,8 +1609,11 @@ static void _sde_encoder_update_vsync_source(struct sde_encoder_virt *sde_enc,
 
 		vsync_cfg.pp_count = sde_enc->num_phys_encs;
 		vsync_cfg.frame_rate = mode_info.frame_rate;
-		vsync_cfg.vsync_source =
-			sde_enc->cur_master->hw_pp->caps->te_source;
+
+		if (sde_enc->cur_master)
+			vsync_cfg.vsync_source =
+				sde_enc->cur_master->hw_pp->caps->te_source;
+
 		if (is_dummy)
 			vsync_cfg.vsync_source = SDE_VSYNC_SOURCE_WD_TIMER_1;
 		else if (disp_info->is_te_using_watchdog_timer)
@@ -3227,6 +3230,24 @@ int sde_encoder_idle_request(struct drm_encoder *drm_enc)
 						SDE_ENC_RC_EVENT_ENTER_IDLE);
 
 	return 0;
+}
+
+int sde_encoder_get_ctlstart_timeout_state(struct drm_encoder *drm_enc)
+{
+	struct sde_encoder_virt *sde_enc = NULL;
+	int i, count = 0;
+
+	if (!drm_enc)
+		return 0;
+
+	sde_enc = to_sde_encoder_virt(drm_enc);
+
+	for (i = 0; i < sde_enc->num_phys_encs; i++) {
+		count += atomic_read(&sde_enc->phys_encs[i]->ctlstart_timeout);
+		atomic_set(&sde_enc->phys_encs[i]->ctlstart_timeout, 0);
+	}
+
+	return count;
 }
 
 int sde_encoder_get_ctlstart_timeout_state(struct drm_encoder *drm_enc)
