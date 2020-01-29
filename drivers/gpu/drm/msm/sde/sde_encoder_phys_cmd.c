@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2015-2019 The Linux Foundation. All rights reserved.
- * Copyright (C) 2019 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -367,23 +366,6 @@ static void _sde_encoder_phys_cmd_setup_irq_hw_idx(
 			"control vblank irq registration error %d\n",
 				ret);
 
-	}
-	atomic_set(&phys_enc->vblank_refcount, 0);
-
-	struct sde_kms *sde_kms = phys_enc->sde_kms;
-	int ret = 0;
-
-	mutex_lock(&sde_kms->vblank_ctl_global_lock);
-	if (atomic_read(&phys_enc->vblank_refcount)) {
-		SDE_ERROR(
-			"vblank_refcount mismatch detected, try to reset %d\n",
-			atomic_read(&phys_enc->vblank_refcount));
-		ret = sde_encoder_helper_unregister_irq(phys_enc,
-			INTR_IDX_RDPTR);
-		if (ret)
-			SDE_ERROR(
-				"control vblank irq registration error %d\n",
-				ret);
 	}
 	atomic_set(&phys_enc->vblank_refcount, 0);
 
@@ -1216,9 +1198,6 @@ static int _sde_encoder_phys_cmd_wait_for_ctl_start(
 				&phys_enc->pending_ctlstart_cnt, -1, 0);
 			atomic_inc_return(&phys_enc->ctlstart_timeout);
 		}
-
-		if (sde_encoder_phys_cmd_is_master(phys_enc))
-			atomic_inc_return(&phys_enc->ctlstart_timeout);
 	}
 
 	return ret;

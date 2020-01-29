@@ -777,26 +777,6 @@ static int _sde_crtc_get_ctlstart_timeout(struct drm_crtc *crtc)
 	return rc;
 }
 
-static int _sde_crtc_get_ctlstart_timeout(struct drm_crtc *crtc)
-{
-	struct drm_encoder *encoder;
-	int rc = 0;
-
-	if (!crtc || !crtc->dev)
-		return 0;
-
-	list_for_each_entry(encoder,
-			&crtc->dev->mode_config.encoder_list, head) {
-		if (encoder->crtc != crtc)
-			continue;
-
-		if (sde_encoder_get_intf_mode(encoder) == INTF_MODE_CMD)
-			rc += sde_encoder_get_ctlstart_timeout_state(encoder);
-	}
-
-	return rc;
-}
-
 static void _sde_crtc_setup_blend_cfg(struct sde_crtc_mixer *mixer,
 	struct sde_plane_state *pstate, struct sde_format *format)
 {
