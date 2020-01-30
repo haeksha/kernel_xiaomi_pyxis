@@ -514,7 +514,7 @@ int fts_gesture_reg_write(struct i2c_client *client, u8 mask, bool enable)
 		FTS_ERROR("[GESTURE]Write gesture reg failed!\n");
 		return -EIO;
 	} else {
-		FTS_ERROR("[GESTURE]Write gesture reg success!\n");
+		FTS_INFO("[GESTURE]Write gesture reg success!\n");
 		return 0;
 	}
 }
