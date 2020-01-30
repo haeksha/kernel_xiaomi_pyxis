@@ -877,7 +877,7 @@
 	};
 
 	qcom,qbt1000 {
-	    status = "disabled";
+		status = "disabled";
 		compatible = "qcom,qbt1000";
 		clock-names = "core", "iface";
 		clock-frequency = <25000000>;
