@@ -174,7 +174,11 @@ the option "tsx_async_abort=". The valid arguments for this option are:
                 CPU is not vulnerable to cross-thread TAA attacks.
   ============  =============================================================
 
-Not specifying this option is equivalent to "tsx_async_abort=full".
+Not specifying this option is equivalent to "tsx_async_abort=full". For
+processors that are affected by both TAA and MDS, specifying just
+"tsx_async_abort=off" without an accompanying "mds=off" will have no
+effect as the same mitigation is used for both vulnerabilities.
+>>>>>>> c1c5428bedf4eb238af32403da63779d9f131a6b
 
 The kernel command line also allows to control the TSX feature using the
 parameter "tsx=" on CPUs which support TSX control. MSR_IA32_TSX_CTRL is used

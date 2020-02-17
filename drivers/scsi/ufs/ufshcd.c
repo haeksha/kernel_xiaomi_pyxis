@@ -3792,10 +3792,10 @@ static int __ufshcd_query_descriptor(struct ufs_hba *hba,
 		goto out_unlock;
 	}
 
-	hba->dev_cmd.query.descriptor = NULL;
 	*buf_len = be16_to_cpu(response->upiu_res.length);
 
 out_unlock:
+	hba->dev_cmd.query.descriptor = NULL;
 	mutex_unlock(&hba->dev_cmd.lock);
 	if (has_read_lock)
 		up_read(&hba->lock);
@@ -8450,6 +8450,11 @@ static int ufshcd_query_ioctl(struct ufs_hba *hba, u8 lun, void __user *buffer)
 		err = ufshcd_query_attr(hba, ioctl_data->opcode,
 					ioctl_data->idn, index, 0, &att);
 		break;
+
+		/* Add required well known logical units to scsi mid layer */
+		ret = ufshcd_scsi_add_wlus(hba);
+		if (ret)
+			goto out;
 
 	case UPIU_QUERY_OPCODE_READ_FLAG:
 		switch (ioctl_data->idn) {
