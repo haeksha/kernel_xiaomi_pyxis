@@ -1764,4 +1764,3 @@ void cfg80211_send_layer2_update(struct net_device *dev, const u8 *addr)
 	netif_rx_ni(skb);
 }
 EXPORT_SYMBOL(cfg80211_send_layer2_update);
->>>>>>> c1c5428bedf4eb238af32403da63779d9f131a6b
