@@ -1545,7 +1545,6 @@ static int configfs_composite_setup(struct usb_gadget *gadget,
 	spin_unlock_irqrestore(&gi->spinlock, flags);
 	return ret;
 }
-#endif
 
 static void configfs_composite_disconnect(struct usb_gadget *gadget)
 {
@@ -1568,6 +1567,7 @@ static void configfs_composite_disconnect(struct usb_gadget *gadget)
 	composite_disconnect(gadget);
 	spin_unlock_irqrestore(&gi->spinlock, flags);
 }
+#endif
 
 static void configfs_composite_suspend(struct usb_gadget *gadget)
 {
