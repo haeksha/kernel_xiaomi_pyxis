@@ -301,6 +301,7 @@ dtb-$(CONFIG_ARCH_SDM670) += sdm670-rumi.dtb \
 	sdm710-pm660a-tasha-codec-cdp.dtb \
 	pyxis-sdm710.dtb \
 	vela-sdm710.dtb
+
 endif
 
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
