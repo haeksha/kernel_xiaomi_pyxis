@@ -599,8 +599,13 @@ int smblib_set_prop_pr_swap_in_progress(struct smb_charger *chg,
 int smblib_stat_sw_override_cfg(struct smb_charger *chg, bool override);
 void smblib_usb_typec_change(struct smb_charger *chg);
 int smblib_toggle_stat(struct smb_charger *chg, int reset);
+<<<<<<< HEAD
 int smblib_set_prop_rerun_apsd(struct smb_charger *chg,
 				const union power_supply_propval *val);
+=======
+int smblib_force_ufp(struct smb_charger *chg);
+>>>>>>> 1273d4bc13ef1415c3fb47f9872988101001f0d8
+
 int smblib_init(struct smb_charger *chg);
 int smblib_deinit(struct smb_charger *chg);
 
