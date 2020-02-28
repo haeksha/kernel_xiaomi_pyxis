@@ -11440,8 +11440,7 @@ void csr_roam_joined_state_msg_processor(tpAniSirGlobal pMac, void *pMsgBuf)
 	{
 		struct csr_roam_session *pSession;
 		tSirSmeAssocIndToUpperLayerCnf *pUpperLayerAssocCnf;
-		struct csr_roam_info roamInfo;
-		struct csr_roam_info *roam_info = NULL;
+		struct csr_roam_info *roam_info;
 		uint32_t sessionId = 0;
 		QDF_STATUS status;
 
@@ -14040,7 +14039,7 @@ QDF_STATUS csr_roam_stop_wait_for_key_timer(tpAniSirGlobal pMac)
 	tpCsrNeighborRoamControlInfo pNeighborRoamInfo =
 		&pMac->roam.neighborRoamInfo[pMac->roam.WaitForKeyTimerInfo.
 					     vdev_id];
-#endif
+
 	sme_debug("WaitForKey timer stopped in state: %s sub-state: %s",
 		mac_trace_get_neighbour_roam_state(pNeighborRoamInfo->
 						   neighborRoamState),
@@ -14048,6 +14047,7 @@ QDF_STATUS csr_roam_stop_wait_for_key_timer(tpAniSirGlobal pMac)
 						curSubState[pMac->roam.
 							    WaitForKeyTimerInfo.
 							    vdev_id]));
+#endif
 
 	if (csr_neighbor_roam_is_handoff_in_progress(pMac,
 				pMac->roam.WaitForKeyTimerInfo.vdev_id)) {
